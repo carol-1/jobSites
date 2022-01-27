@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xuncai.mapper.UserMapper">
+  <resultMap id="User" type="com.xuncai.entity.User">
+    <id property="id" column="id"></id>
+    <result column="user_name" property="userName"></result>
+    <result column="name" property="name"></result>
+    <result column="password" property="password"></result>
+    <result column="login_time" property="loginTime"></result>
+  </resultMap>
+
+  <insert id="create" keyProperty="id" useGeneratedKeys="true">
+   insert into tb_user(user_name,name,password,login_time)
+   values(#{userName},#{name},#{password},'2022-1-26')
+  </insert>
+
+    <delete id="delete">
+    delete from where id = #{id}
+    </delete>
+
+    <update id="update">
+    update tb_user set user_name = #{userName},name = #{name},password = #{password} where id = #{id}
+    </update>
+
+    <update id="updateSelective">
+<set>
+  <if test="userName != null and userName != ''">user_name = #{userName},</if>
+  <if test="name != null and name != ''">name = #{name},</if>
+  <if test="password != null and password != ''">password = #{password},</if>
+  <if test="loginTime != null and loginTime != ''">login_time = #{loginTime},</if>
+</set>
+where id=#{id}
+    </update>
+
+  <select id="query" resultMap="User">
+    select * from tb_user
+    <include refid="UserFindCriteria"></include>
+  </select>
+  <sql id="UserFindCriteria">
+        <where>
+          <if test="userName != null and userName != ''"> and user_name = #{userName},</if>
+          <if test="name != null and name != ''"> and name = #{name},</if>
+          <if test="password != null and password != ''"> and password = #{password},</if>/
+        </where>
+
+  </sql>
+  <select id="detail" resultMap="User">
+    select * from tb_user where id = #{id}
+  </select>
+
+</mapper>
