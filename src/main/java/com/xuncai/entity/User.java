@@ -1,8 +1,10 @@
 package com.xuncai.entity;
 
+import com.xuncai.utils.Entity;
+
 import java.util.Date;
 
-public class User {
+public class User extends Entity {
     private Integer id;
     private String userName;
     private String name;

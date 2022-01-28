@@ -15,22 +15,27 @@
   </insert>
 
     <delete id="delete">
-    delete from where id = #{id}
+    delete from tb_user where id = #{id}
     </delete>
 
-    <update id="update">
-    update tb_user set user_name = #{userName},name = #{name},password = #{password} where id = #{id}
-    </update>
+  <update id="update">
+    update tb_user set
+                     user_name=#{userName},
+                     name=#{name},
+                     password=#{password}
+    where id = #{id}
+  </update>
 
-    <update id="updateSelective">
-<set>
-  <if test="userName != null and userName != ''">user_name = #{userName},</if>
-  <if test="name != null and name != ''">name = #{name},</if>
-  <if test="password != null and password != ''">password = #{password},</if>
-  <if test="loginTime != null and loginTime != ''">login_time = #{loginTime},</if>
-</set>
-where id=#{id}
-    </update>
+
+  <update id="updateSelective">
+    update tb_user set
+    <if test="userName != null and userName != ''"> user_name = #{userName}</if>,
+    <if test="name != null and name != ''"> name = #{name}</if>,
+    <if test="password != null and password != ''"> password = #{password}</if>,
+    <if test="loginTime != null and loginTime != ''"> login_time = #{loginTime}</if>
+    where id = #{id}
+  </update>
+
 
   <select id="query" resultMap="User">
     select * from tb_user
@@ -38,9 +43,9 @@ where id=#{id}
   </select>
   <sql id="UserFindCriteria">
         <where>
-          <if test="userName != null and userName != ''"> and user_name = #{userName},</if>
-          <if test="name != null and name != ''"> and name = #{name},</if>
-          <if test="password != null and password != ''"> and password = #{password},</if>/
+          <if test="userName != null and userName != ''"> and user_name = #{userName}</if>,
+          <if test="name != null and name != ''"> and name = #{name}</if>,
+          <if test="password != null and password != ''"> and password = #{password}</if>
         </where>
 
   </sql>

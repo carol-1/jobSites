@@ -1,5 +1,7 @@
 package com.xuncai.service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.xuncai.entity.User;
 import com.xuncai.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,13 @@ public class UserService {
         return userMapper.updateSelective(user);
     };
     //查询用户
-    public List<User> query(User user){
-        return userMapper.query(user);
+    public PageInfo<User> query(User user){
+        if(user!=null) {
+        PageHelper.startPage(user.getPage(), user.getLimit());
+      }
+        List<User> list = userMapper.query(user);
+        PageInfo pageInfo = new PageInfo(list);
+        return pageInfo;
     };
     //查询信息详情
     public User detail(Integer id){
