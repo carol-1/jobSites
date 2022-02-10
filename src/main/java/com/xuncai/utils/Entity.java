@@ -1,6 +1,8 @@
 package com.xuncai.utils;
 
-public class Entity {
+import java.io.Serializable;
+
+public class Entity implements Serializable {
     //页码数，默认为1
     private Integer page = 1;
     //页面大小。默认为10

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.CertificateMapper">
+
+	<resultMap type="com.yanzhen.entity.Certificate" id="Certificate">
+		<id column="id" property="id"/>
+		<result column="ID"  property="id"/>
+		<result column="name"  property="name"/>
+		<result column="file"  property="file"/>
+		<result column="obtain_date"  property="obtainDate"/>
+		<result column="resume_id"  property="resumeId"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Certificate">
+		insert into tb_certificate(
+			ID,
+			name,
+			file,
+			obtain_date,
+			resume_id
+		)values(
+			#{id},
+			#{name},
+			#{file},
+			#{obtainDate},
+			#{resumeId}
+		)
+	</insert>
+
+	<select id="query" resultMap="Certificate">
+		select * from tb_certificate
+		<include refid="CertificateFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_certificate
+		<include refid="CertificateFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Certificate">
+		select * from tb_certificate where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_certificate where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_certificate set
+			ID=#{id},
+			name=#{name},
+			file=#{file},
+			obtain_date=#{obtainDate},
+			resume_id=#{resumeId}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_certificate set
+			<if test="id != null">ID = #{id}</if>,
+			<if test="name != null and name != ''"> name = #{name}</if>,
+			<if test="file != null and file != ''"> file = #{file}</if>,
+			<if test="obtainDate != null and obtainDate != ''"> obtain_date = #{obtainDate}</if>,
+			<if test="resumeId != null">resume_id = #{resumeId}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="CertificateFindCriteria">
+		<where>
+			<if test="id != null">and ID = #{id}</if>
+			<if test="name != null and name != ''">and name = #{name}</if>
+			<if test="file != null and file != ''">and file = #{file}</if>
+			<if test="resumeId != null">and resume_id = #{resumeId}</if>
+		</where>
+	</sql>
+
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.PostMapper">
+
+	<resultMap type="com.yanzhen.entity.Post" id="Post">
+		<id column="id" property="id"/>
+		<result column="name"  property="name"/>
+		<result column="education"  property="education"/>
+		<result column="salary"  property="salary"/>
+		<result column="description"  property="description"/>
+		<result column="company_id"  property="companyId"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Post">
+		insert into tb_post(
+			name,
+			education,
+			salary,
+			description,
+			company_id
+		)values(
+			#{name},
+			#{education},
+			#{salary},
+			#{description},
+			#{companyId}
+		)
+	</insert>
+
+	<select id="query" resultMap="Post">
+		select * from tb_post
+		<include refid="PostFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_post
+		<include refid="PostFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Post">
+		select * from tb_post where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_post where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_post set
+			name=#{name},
+			education=#{education},
+			salary=#{salary},
+			description=#{description},
+			company_id=#{companyId}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_post set
+			<if test="name != null and name != ''"> name = #{name}</if>,
+			<if test="education != null and education != ''"> education = #{education}</if>,
+			<if test="salary != null and salary != ''"> salary = #{salary}</if>,
+			<if test="description != null and description != ''"> description = #{description}</if>,
+			<if test="companyId != null">company_id = #{companyId}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="PostFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
+			<if test="education != null and education != ''">and education = #{education}</if>
+			<if test="salary != null and salary != ''">and salary = #{salary}</if>
+			<if test="description != null and description != ''">and description = #{description}</if>
+			<if test="companyId != null">and company_id = #{companyId}</if>
+		</where>
+	</sql>
+
+	<select id="getPostList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select tb_post.* ,tb_company.id companyId,tb_company.name companyName,size,type
+		from tb_post,tb_company
+		where tb_post.company_id = tb_company.id
+		<if test="name != null and name != ''">and tb_post.name like concat('%',#{name},'%')</if>
+	</select>
+
+</mapper>

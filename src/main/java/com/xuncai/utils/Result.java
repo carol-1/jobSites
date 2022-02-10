@@ -1,5 +1,10 @@
 package com.xuncai.utils;
 
+import com.github.pagehelper.PageInfo;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Result {
     //后端往前端返回的数据
     private Integer code;
@@ -33,13 +38,27 @@ public class Result {
     public static Result ok(){
         return new Result(Status.SUCCESS.getCode(),Status.SUCCESS.getMsg(),null);
     }
+    public static Map<String,Object> ok(PageInfo pageInfo){
+        pageInfo.getTotal();
+        pageInfo.getList();
+        Map<String,Object> map = new HashMap<>();
+        map.put("code",Status.SUCCESS.getCode());
+        map.put("msg",Status.SUCCESS.getMsg());
+        map.put("total",pageInfo.getTotal());
+        map.put("data",pageInfo.getList());
+        return map;
+    }
     public static Result ok(Object data){
         return new Result(Status.SUCCESS.getCode(),Status.SUCCESS.getMsg(),data);
     }
-    public static Result error(){
+    public static Result fail(){
         return new Result(Status.ERROR.getCode(),Status.ERROR.getMsg(),null);
     }
-    public static Result error(String msg){
+    public static Result fail(Integer code,String msg){
+
+        return new Result(code,msg,null);
+    }
+    public static Result fail(String msg){
         return new Result(Status.ERROR.getCode(),msg,null);
     }
     public Result(Integer code,String msg,Object data){

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.TrainMapper">
+
+	<resultMap type="com.yanzhen.entity.Train" id="Train">
+		<id column="id" property="id"/>
+		<result column="start_date"  property="startDate"/>
+		<result column="end_date"  property="endDate"/>
+		<result column="company"  property="company"/>
+		<result column="course"  property="course"/>
+		<result column="resume_id"  property="resumeId"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Train">
+		insert into tb_train(
+			start_date,
+			end_date,
+			company,
+			course,
+			resume_id
+		)values(
+			#{startDate},
+			#{endDate},
+			#{company},
+			#{course},
+			#{resumeId}
+		)
+	</insert>
+
+	<select id="query" resultMap="Train">
+		select * from tb_train
+		<include refid="TrainFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_train
+		<include refid="TrainFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Train">
+		select * from tb_train where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_train where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_train set
+			start_date=#{startDate},
+			end_date=#{endDate},
+			company=#{company},
+			course=#{course},
+			resume_id=#{resumeId}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_train set
+			<if test="startDate != null and startDate != ''"> start_date = #{startDate}</if>,
+			<if test="endDate != null and endDate != ''"> end_date = #{endDate}</if>,
+			<if test="company != null and company != ''"> company = #{company}</if>,
+			<if test="course != null and course != ''"> course = #{course}</if>,
+			<if test="resumeId != null">resume_id = #{resumeId}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="TrainFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="company != null and company != ''">and company = #{company}</if>
+			<if test="course != null and course != ''">and course = #{course}</if>
+			<if test="resumeId != null">and resume_id = #{resumeId}</if>
+		</where>
+	</sql>
+
+</mapper>

@@ -1,8 +1,10 @@
 package com.xuncai.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.xuncai.entity.User;
-import com.xuncai.service.UserService;
+import com.xuncai.entity.Project;
+import com.xuncai.entity.Resume;
+import com.xuncai.service.ProjectService;
+import com.xuncai.service.ResumeService;
 import com.xuncai.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +13,17 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/project")
+public class ProjectController {
 
     @Autowired
-    private UserService userService;
+    private ProjectService projectService;
+    @Autowired
+    private ResumeService resumeService;
 
     @PostMapping("create")
-
-    public Result create(@RequestBody User user){
-        int flag = userService.create(user);
+    public Result create(@RequestBody Project project){
+        int flag = projectService.create(project);
         if(flag>0){
             return Result.ok();
         }else{
@@ -30,7 +33,7 @@ public class UserController {
 
     @GetMapping("delete")
     public Result delete(String ids){
-        int flag = userService.delete(ids);
+        int flag = projectService.delete(ids);
         if(flag>0){
             return Result.ok();
         }else{
@@ -39,8 +42,8 @@ public class UserController {
     }
 
     @PostMapping("update")
-    public Result update(@RequestBody User user){
-        int flag = userService.update(user);
+    public Result update(@RequestBody Project project){
+        int flag = projectService.update(project);
         if(flag>0){
             return Result.ok();
         }else{
@@ -50,13 +53,16 @@ public class UserController {
 
     @GetMapping("detail")
     public Result detail(Integer id){
-        return  Result.ok(userService.detail(id));
+        return  Result.ok(projectService.detail(id));
     }
 
     @PostMapping("query")
-
-    public Map<String,Object> query(@RequestBody  User user){
-        PageInfo<User> pageInfo = userService.query(user);
+    public Map<String,Object> query(@RequestBody  Project project){
+        PageInfo<Project> pageInfo = projectService.query(project);
+        pageInfo.getList().forEach(item->{
+            Resume detail = resumeService.detail(item.getResumeId());
+            item.setResume(detail);
+        });
         return Result.ok(pageInfo);
     }
 

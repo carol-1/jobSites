@@ -1,8 +1,8 @@
 package com.xuncai.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.xuncai.entity.User;
-import com.xuncai.service.UserService;
+import com.xuncai.entity.UserMenu;
+import com.xuncai.service.UserMenuService;
 import com.xuncai.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +11,15 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/userMenu")
+public class UserMenuController {
 
     @Autowired
-    private UserService userService;
+    private UserMenuService userMenuService;
 
     @PostMapping("create")
-
-    public Result create(@RequestBody User user){
-        int flag = userService.create(user);
+    public Result create(@RequestBody UserMenu userMenu){
+        int flag = userMenuService.create(userMenu);
         if(flag>0){
             return Result.ok();
         }else{
@@ -30,7 +29,7 @@ public class UserController {
 
     @GetMapping("delete")
     public Result delete(String ids){
-        int flag = userService.delete(ids);
+        int flag = userMenuService.delete(ids);
         if(flag>0){
             return Result.ok();
         }else{
@@ -39,8 +38,8 @@ public class UserController {
     }
 
     @PostMapping("update")
-    public Result update(@RequestBody User user){
-        int flag = userService.update(user);
+    public Result update(@RequestBody UserMenu userMenu){
+        int flag = userMenuService.update(userMenu);
         if(flag>0){
             return Result.ok();
         }else{
@@ -50,13 +49,12 @@ public class UserController {
 
     @GetMapping("detail")
     public Result detail(Integer id){
-        return  Result.ok(userService.detail(id));
+        return  Result.ok(userMenuService.detail(id));
     }
 
     @PostMapping("query")
-
-    public Map<String,Object> query(@RequestBody  User user){
-        PageInfo<User> pageInfo = userService.query(user);
+    public Map<String,Object> query(@RequestBody  UserMenu userMenu){
+        PageInfo<UserMenu> pageInfo = userMenuService.query(userMenu);
         return Result.ok(pageInfo);
     }
 

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.ChannelMapper">
+
+	<resultMap type="com.yanzhen.entity.Channel" id="Channel">
+		<id column="id" property="id"/>
+		<result column="name"  property="name"/>
+		<result column="parent_id"  property="parentId"/>
+		<result column="channel_img"  property="channelImg"/>
+		<result column="summary"  property="summary"/>
+		<result column="single"  property="single"/>
+		<result column="url"  property="url"/>
+		<result column="content"  property="content"/>
+		<result column="sort"  property="sort"/>
+		<result column="create_date"  property="createDate"/>
+		<result column="create_user"  property="createUser"/>
+		<result column="deleted_flag"  property="deletedFlag"/>
+		<result column="postion"  property="postion"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Channel">
+		insert into tb_channel(
+			name,
+			parent_id,
+			channel_img,
+			summary,
+			single,
+			url,
+			content,
+			sort,
+			create_date,
+			create_user,
+			deleted_flag,
+			postion
+		)values(
+			#{name},
+			#{parentId},
+			#{channelImg},
+			#{summary},
+			#{single},
+			#{url},
+			#{content},
+			#{sort},
+			#{createDate},
+			#{createUser},
+			#{deletedFlag},
+			#{postion}
+		)
+	</insert>
+
+	<select id="query" resultMap="Channel">
+		select * from tb_channel
+		<include refid="ChannelFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_channel
+		<include refid="ChannelFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Channel">
+		select * from tb_channel where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_channel where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_channel set
+			name=#{name},
+			parent_id=#{parentId},
+			channel_img=#{channelImg},
+			summary=#{summary},
+			single=#{single},
+			url=#{url},
+			content=#{content},
+			sort=#{sort},
+			create_date=#{createDate},
+			create_user=#{createUser},
+			deleted_flag=#{deletedFlag},
+			postion=#{postion}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_channel set
+			<if test="name != null and name != ''"> name = #{name}</if>,
+			<if test="parentId != null">parent_id = #{parentId}</if>,
+			<if test="channelImg != null and channelImg != ''"> channel_img = #{channelImg}</if>,
+			<if test="summary != null and summary != ''"> summary = #{summary}</if>,
+			<if test="single != null and single != ''"> single = #{single}</if>,
+			<if test="url != null and url != ''"> url = #{url}</if>,
+			<if test="content != null and content != ''"> content = #{content}</if>,
+			<if test="sort != null">sort = #{sort}</if>,
+			<if test="createDate != null and createDate != ''"> create_date = #{createDate}</if>,
+			<if test="createUser != null">create_user = #{createUser}</if>,
+			<if test="deletedFlag != null and deletedFlag != ''"> deleted_flag = #{deletedFlag}</if>,
+			<if test="postion != null">postion = #{postion}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="ChannelFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="name != null and name != ''">and name like concat('%',#{name},'%')</if>
+			<if test="parentId != null">and parent_id = #{parentId}</if>
+			<if test="channelImg != null and channelImg != ''">and channel_img = #{channelImg}</if>
+			<if test="summary != null and summary != ''">and summary = #{summary}</if>
+			<if test="single != null and single != ''">and single = #{single}</if>
+			<if test="url != null and url != ''">and url = #{url}</if>
+			<if test="content != null and content != ''">and content = #{content}</if>
+			<if test="sort != null">and sort = #{sort}</if>
+			<if test="createUser != null">and create_user = #{createUser}</if>
+			<if test="deletedFlag != null and deletedFlag != ''">and deleted_flag = #{deletedFlag}</if>
+			<if test="postion != null">and postion = #{postion}</if>
+		</where>
+	</sql>
+
+</mapper>

@@ -1,8 +1,10 @@
 package com.xuncai.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.xuncai.entity.User;
-import com.xuncai.service.UserService;
+import com.xuncai.entity.Resume;
+import com.xuncai.entity.Train;
+import com.xuncai.service.ResumeService;
+import com.xuncai.service.TrainService;
 import com.xuncai.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +13,18 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/train")
+public class TrainController {
 
     @Autowired
-    private UserService userService;
+    private TrainService trainService;
+
+    @Autowired
+    private ResumeService resumeService;
 
     @PostMapping("create")
-
-    public Result create(@RequestBody User user){
-        int flag = userService.create(user);
+    public Result create(@RequestBody Train train){
+        int flag = trainService.create(train);
         if(flag>0){
             return Result.ok();
         }else{
@@ -30,7 +34,7 @@ public class UserController {
 
     @GetMapping("delete")
     public Result delete(String ids){
-        int flag = userService.delete(ids);
+        int flag = trainService.delete(ids);
         if(flag>0){
             return Result.ok();
         }else{
@@ -39,8 +43,8 @@ public class UserController {
     }
 
     @PostMapping("update")
-    public Result update(@RequestBody User user){
-        int flag = userService.update(user);
+    public Result update(@RequestBody Train train){
+        int flag = trainService.update(train);
         if(flag>0){
             return Result.ok();
         }else{
@@ -50,13 +54,16 @@ public class UserController {
 
     @GetMapping("detail")
     public Result detail(Integer id){
-        return  Result.ok(userService.detail(id));
+        return  Result.ok(trainService.detail(id));
     }
 
     @PostMapping("query")
-
-    public Map<String,Object> query(@RequestBody  User user){
-        PageInfo<User> pageInfo = userService.query(user);
+    public Map<String,Object> query(@RequestBody  Train train){
+        PageInfo<Train> pageInfo = trainService.query(train);
+        pageInfo.getList().forEach(item->{
+            Resume detail = resumeService.detail(item.getResumeId());
+            item.setResume(detail);
+        });
         return Result.ok(pageInfo);
     }
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.ExperienceMapper">
+
+	<resultMap type="com.yanzhen.entity.Experience" id="Experience">
+		<id column="id" property="id"/>
+		<result column="company"  property="company"/>
+		<result column="post"  property="post"/>
+		<result column="salary"  property="salary"/>
+		<result column="description"  property="description"/>
+		<result column="join_date"  property="joinDate"/>
+		<result column="leave_date"  property="leaveDate"/>
+		<result column="resume_id"  property="resumeId"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Experience">
+		insert into tb_experience(
+			company,
+			post,
+			salary,
+			description,
+			join_date,
+			leave_date,
+			resume_id
+		)values(
+			#{company},
+			#{post},
+			#{salary},
+			#{description},
+			#{joinDate},
+			#{leaveDate},
+			#{resumeId}
+		)
+	</insert>
+
+	<select id="query" resultMap="Experience">
+		select * from tb_experience
+		<include refid="ExperienceFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_experience
+		<include refid="ExperienceFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Experience">
+		select * from tb_experience where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_experience where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_experience set
+			company=#{company},
+			post=#{post},
+			salary=#{salary},
+			description=#{description},
+			join_date=#{joinDate},
+			leave_date=#{leaveDate},
+			resume_id=#{resumeId}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_experience set
+			<if test="company != null and company != ''"> company = #{company}</if>,
+			<if test="post != null and post != ''"> post = #{post}</if>,
+			<if test="salary != null and salary != ''"> salary = #{salary}</if>,
+			<if test="description != null and description != ''"> description = #{description}</if>,
+			<if test="joinDate != null and joinDate != ''"> join_date = #{joinDate}</if>,
+			<if test="leaveDate != null and leaveDate != ''"> leave_date = #{leaveDate}</if>,
+			<if test="resumeId != null">resume_id = #{resumeId}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="ExperienceFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="company != null and company != ''">and company = #{company}</if>
+			<if test="post != null and post != ''">and post = #{post}</if>
+			<if test="salary != null and salary != ''">and salary = #{salary}</if>
+			<if test="description != null and description != ''">and description = #{description}</if>
+			<if test="resumeId != null">and resume_id = #{resumeId}</if>
+		</where>
+	</sql>
+
+</mapper>

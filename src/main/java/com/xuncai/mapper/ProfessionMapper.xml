@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.ProfessionMapper">
+
+	<resultMap type="com.yanzhen.entity.Profession" id="Profession">
+		<id column="id" property="id"/>
+		<result column="name"  property="name"/>
+		<result column="parent_id"  property="parentId"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Profession">
+		insert into tb_profession(
+			name,
+			parent_id
+		)values(
+			#{name},
+			#{parentId}
+		)
+	</insert>
+
+	<select id="query" resultMap="Profession">
+		select * from tb_profession
+		<include refid="ProfessionFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_profession
+		<include refid="ProfessionFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Profession">
+		select * from tb_profession where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_profession where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_profession set
+			name=#{name},
+			parent_id=#{parentId}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_profession set
+			<if test="name != null and name != ''"> name = #{name}</if>,
+			<if test="parentId != null">parent_id = #{parentId}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="ProfessionFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="name != null and name != ''">and name = #{name}</if>
+			<if test="parentId != null">and parent_id = #{parentId}</if>
+		</where>
+	</sql>
+
+</mapper>

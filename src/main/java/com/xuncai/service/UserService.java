@@ -2,6 +2,7 @@ package com.xuncai.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mysql.cj.util.StringUtils;
 import com.xuncai.entity.User;
 import com.xuncai.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,20 @@ public class UserService {
      return userMapper.create(user);
     };
     //删除用户
-    public int delete(Integer id){
+    public int  delete(Integer id){
         return userMapper.delete(id);
+    };
+    //删除用户
+    public int  delete(String ids){
+        int row = 0;
+        String[] arr = ids.split(",");
+        for(String s:arr){
+            if(!StringUtils.isEmptyOrWhitespaceOnly(s)){
+               userMapper.delete(Integer.parseInt((s)));
+               row++;
+            }
+        }
+        return row;
     };
     //修改用户
     public int update(User user){

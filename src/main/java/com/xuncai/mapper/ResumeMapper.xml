@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.ResumeMapper">
+
+	<resultMap type="com.yanzhen.entity.Resume" id="Resume">
+		<id column="id" property="id"/>
+		<result column="name"  property="name"/>
+		<result column="job_status"  property="jobStatus"/>
+		<result column="evaluate"  property="evaluate"/>
+		<result column="skill"  property="skill"/>
+		<result column="student_id"  property="studentId"/>
+		<result column="status"  property="status"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Resume">
+		insert into tb_resume(
+			name,
+			job_status,
+			evaluate,
+			skill,
+			student_id,
+			status
+		)values(
+			#{name},
+			#{jobStatus},
+			#{evaluate},
+			#{skill},
+			#{studentId},
+			#{status}
+		)
+	</insert>
+
+	<select id="query" resultMap="Resume">
+		select * from tb_resume
+		<include refid="ResumeFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_resume
+		<include refid="ResumeFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Resume">
+		select * from tb_resume where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_resume where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_resume set
+			name=#{name},
+			job_status=#{jobStatus},
+			evaluate=#{evaluate},
+			skill=#{skill},
+			student_id=#{studentId},
+			status=#{status}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_resume set
+			<if test="name != null and name != ''"> name = #{name}</if>,
+			<if test="jobStatus != null">job_status = #{jobStatus}</if>,
+			<if test="evaluate != null and evaluate != ''"> evaluate = #{evaluate}</if>,
+			<if test="skill != null and skill != ''"> skill = #{skill}</if>,
+			<if test="studentId != null">student_id = #{studentId}</if>,
+			<if test="status != null">status = #{status}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="ResumeFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="name != null and name != ''">and name = #{name}</if>
+			<if test="jobStatus != null">and job_status = #{jobStatus}</if>
+			<if test="evaluate != null and evaluate != ''">and evaluate = #{evaluate}</if>
+			<if test="skill != null and skill != ''">and skill = #{skill}</if>
+			<if test="studentId != null">and student_id = #{studentId}</if>
+			<if test="status != null">and status = #{status}</if>
+		</where>
+	</sql>
+
+</mapper>

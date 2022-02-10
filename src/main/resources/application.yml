@@ -6,6 +6,17 @@ spring:
     password: 123456
   main:
     allow-circular-references: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    password:
+    lettuce:
+      pool:
+        max-active: 10
+        min-idle: 0
+        max-wait: -1ms
+        max-idle: 0
 
 server:
   port: 8888

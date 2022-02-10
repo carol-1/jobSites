@@ -43,8 +43,8 @@
   </select>
   <sql id="UserFindCriteria">
         <where>
-          <if test="userName != null and userName != ''"> and user_name = #{userName}</if>,
-          <if test="name != null and name != ''"> and name = #{name}</if>,
+          <if test="userName != null and userName != ''"> and user_name = #{userName}</if>
+          <if test="name != null and name != ''"> and name = #{name}</if>
           <if test="password != null and password != ''"> and password = #{password}</if>
         </where>
 

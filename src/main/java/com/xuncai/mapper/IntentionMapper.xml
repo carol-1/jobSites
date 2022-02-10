@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.IntentionMapper">
+
+	<resultMap type="com.yanzhen.entity.Intention" id="Intention">
+		<id column="id" property="id"/>
+		<result column="name"  property="name"/>
+		<result column="salary"  property="salary"/>
+		<result column="city"  property="city"/>
+		<result column="type"  property="type"/>
+		<result column="industry"  property="industry"/>
+		<result column="resume_id"  property="resumeId"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Intention">
+		insert into tb_intention(
+			name,
+			salary,
+			city,
+			type,
+			industry,
+			resume_id
+		)values(
+			#{name},
+			#{salary},
+			#{city},
+			#{type},
+			#{industry},
+			#{resumeId}
+		)
+	</insert>
+
+	<select id="query" resultMap="Intention">
+		select * from tb_intention
+		<include refid="IntentionFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_intention
+		<include refid="IntentionFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Intention">
+		select * from tb_intention where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_intention where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_intention set
+			name=#{name},
+			salary=#{salary},
+			city=#{city},
+			type=#{type},
+			industry=#{industry},
+			resume_id=#{resumeId}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_intention set
+			<if test="name != null and name != ''"> name = #{name}</if>,
+			<if test="salary != null and salary != ''"> salary = #{salary}</if>,
+			<if test="city != null and city != ''"> city = #{city}</if>,
+			<if test="type != null and type != ''"> type = #{type}</if>,
+			<if test="industry != null and industry != ''"> industry = #{industry}</if>,
+			<if test="resumeId != null">resume_id = #{resumeId}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="IntentionFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="name != null and name != ''">and name = #{name}</if>
+			<if test="salary != null and salary != ''">and salary = #{salary}</if>
+			<if test="city != null and city != ''">and city = #{city}</if>
+			<if test="type != null and type != ''">and type = #{type}</if>
+			<if test="industry != null and industry != ''">and industry = #{industry}</if>
+			<if test="resumeId != null">and resume_id = #{resumeId}</if>
+		</where>
+	</sql>
+
+</mapper>

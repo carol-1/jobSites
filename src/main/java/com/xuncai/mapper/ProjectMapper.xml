@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.ProjectMapper">
+
+	<resultMap type="com.yanzhen.entity.Project" id="Project">
+		<id column="id" property="id"/>
+		<result column="name"  property="name"/>
+		<result column="description"  property="description"/>
+		<result column="start_date"  property="startDate"/>
+		<result column="end_date"  property="endDate"/>
+		<result column="resume_id"  property="resumeId"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Project">
+		insert into tb_project(
+			name,
+			description,
+			start_date,
+			end_date,
+			resume_id
+		)values(
+			#{name},
+			#{description},
+			#{startDate},
+			#{endDate},
+			#{resumeId}
+		)
+	</insert>
+
+	<select id="query" resultMap="Project">
+		select * from tb_project
+		<include refid="ProjectFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_project
+		<include refid="ProjectFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Project">
+		select * from tb_project where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_project where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_project set
+			name=#{name},
+			description=#{description},
+			start_date=#{startDate},
+			end_date=#{endDate},
+			resume_id=#{resumeId}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_project set
+			<if test="name != null and name != ''"> name = #{name}</if>,
+			<if test="description != null and description != ''"> description = #{description}</if>,
+			<if test="startDate != null and startDate != ''"> start_date = #{startDate}</if>,
+			<if test="endDate != null and endDate != ''"> end_date = #{endDate}</if>,
+			<if test="resumeId != null">resume_id = #{resumeId}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="ProjectFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="name != null and name != ''">and name = #{name}</if>
+			<if test="description != null and description != ''">and description = #{description}</if>
+			<if test="resumeId != null">and resume_id = #{resumeId}</if>
+		</where>
+	</sql>
+
+</mapper>

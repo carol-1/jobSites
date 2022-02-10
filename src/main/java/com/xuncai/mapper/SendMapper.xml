@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.SendMapper">
+
+	<resultMap type="com.yanzhen.entity.Send" id="Send">
+		<id column="id" property="id"/>
+		<result column="company_id"  property="companyId"/>
+		<result column="post_id"  property="postId"/>
+		<result column="resume_id"  property="resumeId"/>
+		<result column="send_date"  property="sendDate"/>
+		<result column="status"  property="status"/>
+		<result column="student_id"  property="studentId"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Send">
+		insert into tb_send(
+			company_id,
+			post_id,
+			resume_id,
+			send_date,
+			status,
+			student_id
+		)values(
+			#{companyId},
+			#{postId},
+			#{resumeId},
+			#{sendDate},
+			#{status},
+			#{studentId}
+		)
+	</insert>
+
+	<select id="query" resultMap="Send">
+		select * from tb_send
+		<include refid="SendFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_send
+		<include refid="SendFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Send">
+		select * from tb_send where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_send where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_send set
+			company_id=#{companyId},
+			post_id=#{postId},
+			resume_id=#{resumeId},
+			send_date=#{sendDate},
+			status=#{status},
+			student_id=#{studentId}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_send set
+			<if test="companyId != null">company_id = #{companyId}</if>,
+			<if test="postId != null">post_id = #{postId}</if>,
+			<if test="resumeId != null">resume_id = #{resumeId}</if>,
+			<if test="sendDate != null and sendDate != ''"> send_date = #{sendDate}</if>,
+			<if test="status != null">status = #{status}</if>,
+			<if test="studentId != null">student_id = #{studentId}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="SendFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="companyId != null">and company_id = #{companyId}</if>
+			<if test="postId != null">and post_id = #{postId}</if>
+			<if test="resumeId != null">and resume_id = #{resumeId}</if>
+			<if test="status != null">and status = #{status}</if>
+			<if test="studentId != null">and student_id = #{studentId}</if>
+		</where>
+	</sql>
+
+</mapper>

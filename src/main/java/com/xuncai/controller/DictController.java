@@ -1,9 +1,12 @@
 package com.xuncai.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.xuncai.entity.User;
-import com.xuncai.service.UserService;
+import com.xuncai.entity.Dict;
+import com.xuncai.framework.redis.RedisUtil;
+import com.xuncai.service.DictService;
 import com.xuncai.utils.Result;
+import com.xuncai.utils.UserThreadLocal;
+import com.xuncai.vo.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,16 +14,16 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/dict")
+public class DictController {
 
     @Autowired
-    private UserService userService;
+    private DictService dictService;
 
     @PostMapping("create")
+    public Result create(@RequestBody Dict dict){
 
-    public Result create(@RequestBody User user){
-        int flag = userService.create(user);
+        int flag = dictService.create(dict);
         if(flag>0){
             return Result.ok();
         }else{
@@ -30,7 +33,7 @@ public class UserController {
 
     @GetMapping("delete")
     public Result delete(String ids){
-        int flag = userService.delete(ids);
+        int flag = dictService.delete(ids);
         if(flag>0){
             return Result.ok();
         }else{
@@ -39,8 +42,8 @@ public class UserController {
     }
 
     @PostMapping("update")
-    public Result update(@RequestBody User user){
-        int flag = userService.update(user);
+    public Result update(@RequestBody Dict dict){
+        int flag = dictService.update(dict);
         if(flag>0){
             return Result.ok();
         }else{
@@ -50,13 +53,12 @@ public class UserController {
 
     @GetMapping("detail")
     public Result detail(Integer id){
-        return  Result.ok(userService.detail(id));
+        return  Result.ok(dictService.detail(id));
     }
 
     @PostMapping("query")
-
-    public Map<String,Object> query(@RequestBody  User user){
-        PageInfo<User> pageInfo = userService.query(user);
+    public Map<String,Object> query(@RequestBody  Dict dict){
+        PageInfo<Dict> pageInfo = dictService.query(dict);
         return Result.ok(pageInfo);
     }
 

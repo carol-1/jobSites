@@ -1,9 +1,13 @@
 package com.xuncai.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.xuncai.entity.User;
+import com.xuncai.entity.Menu;
+import com.xuncai.service.MenuService;
+import com.xuncai.service.UserDataService;
 import com.xuncai.service.UserService;
 import com.xuncai.utils.Result;
+import com.xuncai.utils.UserThreadLocal;
+import com.xuncai.vo.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,16 +15,17 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/menu")
+public class MenuController {
 
     @Autowired
-    private UserService userService;
+    private MenuService menuService;
+    @Autowired
+    private UserDataService userDataService;
 
     @PostMapping("create")
-
-    public Result create(@RequestBody User user){
-        int flag = userService.create(user);
+    public Result create(@RequestBody Menu menu){
+        int flag = menuService.create(menu);
         if(flag>0){
             return Result.ok();
         }else{
@@ -30,7 +35,7 @@ public class UserController {
 
     @GetMapping("delete")
     public Result delete(String ids){
-        int flag = userService.delete(ids);
+        int flag = menuService.delete(ids);
         if(flag>0){
             return Result.ok();
         }else{
@@ -39,8 +44,8 @@ public class UserController {
     }
 
     @PostMapping("update")
-    public Result update(@RequestBody User user){
-        int flag = userService.update(user);
+    public Result update(@RequestBody Menu menu){
+        int flag = menuService.update(menu);
         if(flag>0){
             return Result.ok();
         }else{
@@ -50,14 +55,16 @@ public class UserController {
 
     @GetMapping("detail")
     public Result detail(Integer id){
-        return  Result.ok(userService.detail(id));
+        return  Result.ok(menuService.detail(id));
     }
 
     @PostMapping("query")
-
-    public Map<String,Object> query(@RequestBody  User user){
-        PageInfo<User> pageInfo = userService.query(user);
-        return Result.ok(pageInfo);
+    public Result query(){
+        Menu menu = new Menu();
+        //获取当前登录用户
+        UserData userData = userDataService.getUserData();
+        menu.setType(userData.getType());
+        return Result.ok(menuService.query(menu));
     }
 
 }

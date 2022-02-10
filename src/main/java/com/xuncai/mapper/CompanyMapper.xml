@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yanzhen.mapper.CompanyMapper">
+
+	<resultMap type="com.yanzhen.entity.Company" id="Company">
+		<id column="id" property="id"/>
+		<result column="name"  property="name"/>
+		<result column="account"  property="account"/>
+		<result column="password"  property="password"/>
+		<result column="contact"  property="contact"/>
+		<result column="telephone"  property="telephone"/>
+		<result column="email"  property="email"/>
+		<result column="addr"  property="addr"/>
+		<result column="url"  property="url"/>
+		<result column="size"  property="size"/>
+		<result column="type"  property="type"/>
+		<result column="logo"  property="logo"/>
+		<result column="description"  property="description"/>
+	</resultMap>
+
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Company">
+		insert into tb_company(
+			name,
+			account,
+			password,
+			contact,
+			telephone,
+			email,
+			addr,
+			url,
+			size,
+			type,
+			logo,
+			description
+		)values(
+			#{name},
+			#{account},
+			#{password},
+			#{contact},
+			#{telephone},
+			#{email},
+			#{addr},
+			#{url},
+			#{size},
+			#{type},
+			#{logo},
+			#{description}
+		)
+	</insert>
+
+	<select id="query" resultMap="Company">
+		select * from tb_company
+		<include refid="CompanyFindCriteria"/>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(1) from tb_company
+		<include refid="CompanyFindCriteria"/>
+	</select>
+
+	<select id="detail" resultMap="Company">
+		select * from tb_company where id = #{id}
+	</select>
+
+	<delete id="delete">
+		delete from tb_company where id = #{id}
+	</delete>
+	<update id="update">
+		update tb_company set
+			name=#{name},
+			account=#{account},
+			password=#{password},
+			contact=#{contact},
+			telephone=#{telephone},
+			email=#{email},
+			addr=#{addr},
+			url=#{url},
+			size=#{size},
+			type=#{type},
+			logo=#{logo},
+			description=#{description}
+		where id = #{id}
+	</update>
+
+	<update id="updateSelective">
+		update tb_company set
+			<if test="name != null and name != ''"> name = #{name}</if>,
+			<if test="account != null and account != ''"> account = #{account}</if>,
+			<if test="password != null and password != ''"> password = #{password}</if>,
+			<if test="contact != null and contact != ''"> contact = #{contact}</if>,
+			<if test="telephone != null and telephone != ''"> telephone = #{telephone}</if>,
+			<if test="email != null and email != ''"> email = #{email}</if>,
+			<if test="addr != null and addr != ''"> addr = #{addr}</if>,
+			<if test="url != null and url != ''"> url = #{url}</if>,
+			<if test="size != null and size != ''"> size = #{size}</if>,
+			<if test="type != null and type != ''"> type = #{type}</if>,
+			<if test="logo != null and logo != ''"> logo = #{logo}</if>,
+			<if test="description != null and description != ''"> description = #{description}</if>
+		where id = #{id}
+	</update>
+
+	<sql id="CompanyFindCriteria">
+		<where>
+			<if test="id != null">and id = #{id}</if>
+			<if test="name != null and name != ''">and name like concat('%', #{name},'%')</if>
+			<if test="account != null and account != ''">and account = #{account}</if>
+			<if test="password != null and password != ''">and password = #{password}</if>
+			<if test="contact != null and contact != ''">and contact like concat('%', #{contact},'%')</if>
+			<if test="telephone != null and telephone != ''">and telephone = #{telephone}</if>
+			<if test="email != null and email != ''">and email = #{email}</if>
+			<if test="addr != null and addr != ''">and addr = #{addr}</if>
+			<if test="url != null and url != ''">and url = #{url}</if>
+			<if test="size != null and size != ''">and size = #{size}</if>
+			<if test="type != null and type != ''">and type = #{type}</if>
+			<if test="logo != null and logo != ''">and logo = #{logo}</if>
+			<if test="description != null and description != ''">and description = #{description}</if>
+		</where>
+	</sql>
+
+</mapper>
