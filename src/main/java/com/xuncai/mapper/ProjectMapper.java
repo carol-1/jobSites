@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Project;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ProjectMapper {
 
 	public int create(Project project);

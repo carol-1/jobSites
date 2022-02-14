@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Train;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface TrainMapper {
 
 	public int create(Train train);

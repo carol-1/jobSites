@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Student;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface StudentMapper {
 
 	public int create(Student student);

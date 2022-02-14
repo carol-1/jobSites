@@ -34,15 +34,16 @@ public class LoginController {
     @PostMapping("/login")
     public Result login(@RequestBody Map<String,String> map){
 
-        String account = map.get("account");
-        String password = map.get("password");
-        String type = map.get("type");
+        String account = map.get("account");//获取用户名
+        String password = map.get("password");//获取密码
+        String type = map.get("type");//获取类型
 
-        boolean flag = false;
+        boolean flag = false;//判断查询是否成功
         UserData userData = new UserData();
         if(String.valueOf(Role.ADMIN.getCode()).equals(type)){ //管理员登录
             User login = userService.login(account, password);
             if(login != null){
+                //赋值操作
                 userData.setId(login.getId());
                 userData.setAccount(login.getUserName());
                 userData.setName(login.getName());
@@ -74,7 +75,7 @@ public class LoginController {
         }
         if(flag){
             //登录成功的情况
-            String token = UUID.randomUUID().toString();
+            String token = UUID.randomUUID().toString();//先生成uuid
             userData.setToken(token);
             redisUtil.set(token,userData,RedisUtil.EXPR);
             return Result.ok(userData);

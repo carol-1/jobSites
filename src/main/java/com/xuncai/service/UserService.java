@@ -57,4 +57,16 @@ public class UserService {
     public User detail(Integer id){
         return userMapper.detail(id);
     };
+    //登录
+    public User login(String userName,String password){
+        User param = new User();
+        param.setUserName(userName);
+        param.setPassword(password);
+        List<User> list = userMapper.query(param);
+        if(list!=null && list.size()>0){
+            return list.get(0);
+        }else {
+            return null;
+        }
+    }
 }

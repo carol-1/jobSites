@@ -1,9 +1,9 @@
-package com.yanzhen.controller;
+package com.xuncai.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.yanzhen.entity.Type;
-import com.yanzhen.service.TypeService;
-import com.yanzhen.utils.Result;
+import com.xuncai.entity.Type;
+import com.xuncai.service.TypeService;
+import com.xuncai.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

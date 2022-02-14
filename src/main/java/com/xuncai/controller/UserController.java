@@ -2,6 +2,8 @@ package com.xuncai.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.xuncai.entity.User;
+import com.xuncai.framework.role.RequiresRoles;
+import com.xuncai.framework.role.Role;
 import com.xuncai.service.UserService;
 import com.xuncai.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("create")
-
+    @RequiresRoles(type= Role.ADMIN)
     public Result create(@RequestBody User user){
         int flag = userService.create(user);
         if(flag>0){

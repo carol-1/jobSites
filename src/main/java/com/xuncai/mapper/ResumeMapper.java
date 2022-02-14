@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Resume;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ResumeMapper {
 
 	public int create(Resume resume);

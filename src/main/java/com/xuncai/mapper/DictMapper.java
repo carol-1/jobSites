@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Dict;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface DictMapper {
 
 	public int create(Dict dict);

@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Favor;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface FavorMapper {
 
 	public int create(Favor favor);

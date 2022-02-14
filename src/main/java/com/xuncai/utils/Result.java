@@ -48,6 +48,8 @@ public class Result {
         map.put("data",pageInfo.getList());
         return map;
     }
+
+
     public static Result ok(Object data){
         return new Result(Status.SUCCESS.getCode(),Status.SUCCESS.getMsg(),data);
     }

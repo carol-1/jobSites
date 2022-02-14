@@ -6,11 +6,7 @@ import com.xuncai.utils.Entity;
 import java.util.Date;
 
 
-/**
- * 
- * @author 596183363@qq.com
- * @time 2020-12-24 22:40:34
- */
+
 public class UserMenu extends Entity{
 
 	/**

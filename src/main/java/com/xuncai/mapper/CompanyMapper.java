@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Company;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface CompanyMapper {
 
 	public int create(Company company);

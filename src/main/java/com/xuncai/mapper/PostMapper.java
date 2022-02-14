@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Post;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface PostMapper {
 
 	public int create(Post post);

@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Intention;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface IntentionMapper {
 
 	public int create(Intention intention);

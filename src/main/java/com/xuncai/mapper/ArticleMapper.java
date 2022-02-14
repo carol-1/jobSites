@@ -1,10 +1,12 @@
 package com.xuncai.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import java.util.List;
 import java.util.Map;
-
 import com.xuncai.entity.Article;
 
+@Mapper
 public interface ArticleMapper {
 
 	public int create(Article article);

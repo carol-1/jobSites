@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xuncai.entity.Certificate;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface CertificateMapper {
 
 	public int create(Certificate certificate);

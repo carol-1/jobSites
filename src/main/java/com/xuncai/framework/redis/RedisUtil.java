@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil {
 
-    public static long EXPR = 3600*24;
+    public static long EXPR = 3600*24;//设置token过期时间
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
