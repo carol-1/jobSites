@@ -33,3 +33,7 @@ logoing:
         mapper: debug
 pagehelper:
   helper-dialect: mysql
+file:
+  uploadFolder: ./
+  accessPath: /
+  baseUrl: /

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yanzhen.mapper.UserMenuMapper">
+<mapper namespace="com.xuncai.mapper.UserMenuMapper">
 
-	<resultMap type="com.yanzhen.entity.UserMenu" id="UserMenu">
+	<resultMap type="com.xuncai.entity.UserMenu" id="UserMenu">
 		<id column="id" property="id"/>
 		<result column="user_id"  property="userId"/>
 		<result column="menu_id"  property="menuId"/>
 	</resultMap>
 
-	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.UserMenu">
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.xuncai.entity.UserMenu">
 		insert into tb_user_menu(
 			user_id,
 			menu_id

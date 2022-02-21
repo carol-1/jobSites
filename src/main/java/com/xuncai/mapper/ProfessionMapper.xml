@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yanzhen.mapper.ProfessionMapper">
+<mapper namespace="com.xuncai.mapper.ProfessionMapper">
 
-	<resultMap type="com.yanzhen.entity.Profession" id="Profession">
+	<resultMap type="com.xuncai.entity.Profession" id="Profession">
 		<id column="id" property="id"/>
 		<result column="name"  property="name"/>
 		<result column="parent_id"  property="parentId"/>
 	</resultMap>
 
-	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Profession">
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.xuncai.entity.Profession">
 		insert into tb_profession(
 			name,
 			parent_id

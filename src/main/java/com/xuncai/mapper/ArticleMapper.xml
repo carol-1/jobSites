@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yanzhen.mapper.ArticleMapper">
+<mapper namespace="com.xuncai.mapper.ArticleMapper">
 
-	<resultMap type="com.yanzhen.entity.Article" id="Article">
+	<resultMap type="com.xuncai.entity.Article" id="Article">
 		<id column="id" property="id"/>
 		<result column="channel_id"  property="channelId"/>
 		<result column="title"  property="title"/>
@@ -17,7 +17,7 @@
 		<result column="update_date"  property="updateDate"/>
 	</resultMap>
 
-	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Article">
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.xuncai.entity.Article">
 		insert into tb_article(
 			channel_id,
 			title,
@@ -31,18 +31,18 @@
 			create_user,
 			update_date
 		)values(
-			#{channelId},
-			#{title},
-			#{titleImg},
-			#{summary},
-			#{author},
-			#{url},
-			#{content},
-			#{sort},
-			#{createDate},
-			#{createUser},
-			#{updateDate}
-		)
+				   #{channelId},
+				   #{title},
+				   #{titleImg},
+				   #{summary},
+				   #{author},
+				   #{url},
+				   #{content},
+				   #{sort},
+				   #{createDate},
+				   #{createUser},
+				   #{updateDate}
+			   )
 	</insert>
 
 	<select id="query" resultMap="Article">
@@ -64,33 +64,33 @@
 	</delete>
 	<update id="update">
 		update tb_article set
-			channel_id=#{channelId},
-			title=#{title},
-			title_img=#{titleImg},
-			summary=#{summary},
-			author=#{author},
-			url=#{url},
-			content=#{content},
-			sort=#{sort},
-			create_date=#{createDate},
-			create_user=#{createUser},
-			update_date=#{updateDate}
+							  channel_id=#{channelId},
+							  title=#{title},
+							  title_img=#{titleImg},
+							  summary=#{summary},
+							  author=#{author},
+							  url=#{url},
+							  content=#{content},
+							  sort=#{sort},
+							  create_date=#{createDate},
+							  create_user=#{createUser},
+							  update_date=#{updateDate}
 		where id = #{id}
 	</update>
 
 	<update id="updateSelective">
 		update tb_article set
-			<if test="channelId != null">channel_id = #{channelId}</if>,
-			<if test="title != null and title != ''"> title = #{title}</if>,
-			<if test="titleImg != null and titleImg != ''"> title_img = #{titleImg}</if>,
-			<if test="summary != null and summary != ''"> summary = #{summary}</if>,
-			<if test="author != null and author != ''"> author = #{author}</if>,
-			<if test="url != null and url != ''"> url = #{url}</if>,
-			<if test="content != null and content != ''"> content = #{content}</if>,
-			<if test="sort != null">sort = #{sort}</if>,
-			<if test="createDate != null and createDate != ''"> create_date = #{createDate}</if>,
-			<if test="createUser != null">create_user = #{createUser}</if>,
-			<if test="updateDate != null and updateDate != ''"> update_date = #{updateDate}</if>
+		<if test="channelId != null">channel_id = #{channelId}</if>,
+		<if test="title != null and title != ''"> title = #{title}</if>,
+		<if test="titleImg != null and titleImg != ''"> title_img = #{titleImg}</if>,
+		<if test="summary != null and summary != ''"> summary = #{summary}</if>,
+		<if test="author != null and author != ''"> author = #{author}</if>,
+		<if test="url != null and url != ''"> url = #{url}</if>,
+		<if test="content != null and content != ''"> content = #{content}</if>,
+		<if test="sort != null">sort = #{sort}</if>,
+		<if test="createDate != null and createDate != ''"> create_date = #{createDate}</if>,
+		<if test="createUser != null">create_user = #{createUser}</if>,
+		<if test="updateDate != null and updateDate != ''"> update_date = #{updateDate}</if>
 		where id = #{id}
 	</update>
 
@@ -112,7 +112,7 @@
 
 	<select id="getArticlesByChannelId" resultMap="Article">
 		select tb_article.* from tb_article,(
-		select * from tb_channel where id = #{channelId} or parent_id = #{channelId}
+			select * from tb_channel where id = #{channelId} or parent_id = #{channelId}
 		) B where tb_article.channel_id = B.id
 	</select>
 

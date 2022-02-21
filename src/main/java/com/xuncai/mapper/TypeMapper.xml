@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yanzhen.mapper.TypeMapper">
+<mapper namespace="com.xuncai.mapper.TypeMapper">
 
-	<resultMap type="com.yanzhen.entity.Type" id="Type">
+	<resultMap type="com.xuncai.entity.Type" id="Type">
 		<id column="id" property="id"/>
 		<result column="name"  property="name"/>
 	</resultMap>
 
-	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Type">
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.xuncai.entity.Type">
 		insert into tb_type(
 			name
 		)values(

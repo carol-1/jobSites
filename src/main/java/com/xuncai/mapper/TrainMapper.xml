@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yanzhen.mapper.TrainMapper">
+<mapper namespace="com.xuncai.mapper.TrainMapper">
 
-	<resultMap type="com.yanzhen.entity.Train" id="Train">
+	<resultMap type="com.xuncai.entity.Train" id="Train">
 		<id column="id" property="id"/>
 		<result column="start_date"  property="startDate"/>
 		<result column="end_date"  property="endDate"/>
@@ -11,7 +11,7 @@
 		<result column="resume_id"  property="resumeId"/>
 	</resultMap>
 
-	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Train">
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.xuncai.entity.Train">
 		insert into tb_train(
 			start_date,
 			end_date,

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yanzhen.mapper.CertificateMapper">
+<mapper namespace="com.xuncai.mapper.CertificateMapper">
 
-	<resultMap type="com.yanzhen.entity.Certificate" id="Certificate">
+	<resultMap type="com.xuncai.entity.Certificate" id="Certificate">
 		<id column="id" property="id"/>
 		<result column="ID"  property="id"/>
 		<result column="name"  property="name"/>
@@ -11,7 +11,7 @@
 		<result column="resume_id"  property="resumeId"/>
 	</resultMap>
 
-	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Certificate">
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.xuncai.entity.Certificate">
 		insert into tb_certificate(
 			ID,
 			name,

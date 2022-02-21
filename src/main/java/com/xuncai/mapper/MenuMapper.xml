@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yanzhen.mapper.MenuMapper">
+<mapper namespace="com.xuncai.mapper.MenuMapper">
 
-	<resultMap type="com.yanzhen.entity.Menu" id="Menu">
+	<resultMap type="com.xuncai.entity.Menu" id="Menu">
 		<id column="id" property="id"/>
 		<result column="name"  property="name"/>
 		<result column="icon"  property="icon"/>
@@ -12,7 +12,7 @@
 		<result column="type"  property="type"/>
 	</resultMap>
 
-	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Menu">
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.xuncai.entity.Menu">
 		insert into tb_menu(
 			name,
 			icon,

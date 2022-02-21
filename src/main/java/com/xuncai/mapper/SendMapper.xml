@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yanzhen.mapper.SendMapper">
+<mapper namespace="com.xuncai.mapper.SendMapper">
 
-	<resultMap type="com.yanzhen.entity.Send" id="Send">
+	<resultMap type="com.xuncai.entity.Send" id="Send">
 		<id column="id" property="id"/>
 		<result column="company_id"  property="companyId"/>
 		<result column="post_id"  property="postId"/>
@@ -12,7 +12,7 @@
 		<result column="student_id"  property="studentId"/>
 	</resultMap>
 
-	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Send">
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.xuncai.entity.Send">
 		insert into tb_send(
 			company_id,
 			post_id,

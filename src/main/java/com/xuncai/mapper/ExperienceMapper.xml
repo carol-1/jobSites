@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yanzhen.mapper.ExperienceMapper">
+<mapper namespace="com.xuncai.mapper.ExperienceMapper">
 
-	<resultMap type="com.yanzhen.entity.Experience" id="Experience">
+	<resultMap type="com.xuncai.entity.Experience" id="Experience">
 		<id column="id" property="id"/>
 		<result column="company"  property="company"/>
 		<result column="post"  property="post"/>
@@ -13,7 +13,7 @@
 		<result column="resume_id"  property="resumeId"/>
 	</resultMap>
 
-	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.yanzhen.entity.Experience">
+	<insert id="create" keyProperty="id" useGeneratedKeys="true" parameterType="com.xuncai.entity.Experience">
 		insert into tb_experience(
 			company,
 			post,
